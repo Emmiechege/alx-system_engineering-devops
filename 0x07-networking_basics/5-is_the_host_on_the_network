@@ -5,10 +5,10 @@
 IP="${1}"
 
 # filename variable
-func=$(basename "${BASH_SOURCE[@]}")
+func=$(basename "${BASH_SOURCE[0]}")
 
 if ! [ "$IP" ]; then
 	echo "Usage: ${func} {IP_ADDRESS}"
 else
-	ping -c 5 "${IP}"
+    ping -c 5 "${IP}" | sed 's/\(PING .*\) (\([0-9.]*\)) bytes/\1\n\2 bytes/g'
 fi
